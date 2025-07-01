@@ -12,7 +12,7 @@ describe('api service (basic)', () => {
     const mockData = [{ id: '1', name: 'Phone 1' }];
     fetch.mockResolvedValueOnce({ ok: true, json: async () => mockData });
 
-    const { getProducts } = await import('./api.js');
+    const { getProducts } = await import('../../services/api.js');
     const result = await getProducts('/products');
 
     expect(fetch).toHaveBeenCalled();
@@ -24,7 +24,7 @@ describe('api service (basic)', () => {
     const mockProduct = { id: '123', name: 'Phone 123' };
     fetch.mockResolvedValueOnce({ ok: true, json: async () => mockProduct });
 
-    const { getProductById } = await import('./api.js');
+    const { getProductById } = await import('../../services/api.js');
     const result = await getProductById('123');
 
     expect(fetch).toHaveBeenCalledWith(
@@ -41,7 +41,7 @@ describe('api service (basic)', () => {
       json: async () => ({ message: 'Error from API' }),
     });
 
-    const { getProducts } = await import('./api.js');
+    const { getProducts } = await import('../../services/api.js');
 
     await expect(getProducts('/fail')).rejects.toThrow('Error from API');
   });
