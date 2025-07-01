@@ -55,9 +55,10 @@
 
 .product-card__image {
   height: 66.66%; /* Top 2/3 */
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
   display: block;
+  padding-top: 16px;
 }
 
 .product-card__brand {
