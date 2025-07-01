@@ -1,18 +1,29 @@
 // needs to show the user the number of results found
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useProducts } from '../hooks/useProducts';
-
 
 function Home() {
   const [search, setSearch] = useState('');
-  const { filtered, loading, error } = useProducts(search);
+  const firstLoad = useRef(true);
+  // Debounced search term to avoid triggering fetch on every keystroke
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  useEffect(() => {
+    // 300 milliseconds delay
+    const handler = setTimeout(() => setDebouncedSearch(search), 300);
+    return () => clearTimeout(handler);
+  }, [search]);
+
+  const { products = [], loading, error } = useProducts(debouncedSearch, 25, 0);
 
   // only show up to 20 at a time
-  const displayed = filtered.slice(0, 20);
+  const displayed = products.slice(0, 20);
 
-  if (loading) return <div>Loading products…</div>;
-  if (error)   return <div className="error">Error: {error}</div>;
+  // Track first load to show full-page loader only once
+  useEffect(() => {
+    if (!loading) firstLoad.current = false;
+  }, [loading]);
 
   return (
     <div className="home-page">
@@ -22,17 +33,19 @@ function Home() {
           type="text"
           placeholder="Search for a smartphone..."
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
           className="search-input"
         />
         <p className="results-count">
-          {displayed.length} result{filtered.length !== 1 ? 's' : ''} found
+          {displayed.length} result{displayed.length !== 1 ? 's' : ''} found
         </p>
       </div>
 
+      {error && <div className="error">Error: {error}</div>}
+
       <div className="product-card product-card--home">
-        {displayed.map((p, key) => (
-          <div className="product-card__body" key={key}>
+        {displayed.map((p) => (
+          <div className="product-card__body" key={p.id}>
             <img
               className="product-card__image"
               src={p.imageUrl}
