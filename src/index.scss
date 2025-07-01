@@ -1,8 +1,11 @@
 // VARIABLES ---- USE IT MANUALY OR CONFIG AUTOMATIC INJECTION IN EVERY FILE
 // @use './styles/variables.scss';
 
+// COMPONENTS
+@use './styles/components/Navbar.scss';
+
+// APP
 @use './styles/App.scss';
 
 // STYLES FOR THE PAGES
-@use './styles/Pages/Home.scss'
-
+@use './styles/Pages/Home.scss';
