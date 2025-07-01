@@ -1,16 +1,17 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/about">About</Link>
-      </nav>
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
+
+      <section className="footer"></section>
     </>
   );
 }
