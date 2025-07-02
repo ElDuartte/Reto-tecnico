@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
+import ProductCard from '../components/ProductCard';
 
 function Product() {
   const { id } = useParams();
@@ -27,6 +28,9 @@ function Product() {
     }
 
     fetchProduct();
+    //scroll up after the user clicks on a new product
+    // instead of staying at the bottom looking at the carousel
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [id]);
 
   if (loading) return <div>Loading product...</div>;
@@ -36,7 +40,7 @@ function Product() {
   return (
     <>
       <section className="container">
-        <Link to="/">&lt;  Back</Link>
+        <Link to="/">&lt; Back</Link>
       </section>
       <div className="container__product">
         <section className="product-detail">
@@ -158,6 +162,14 @@ function Product() {
               <span className="spec-key">SCREEN REFRESH RATE</span>
               <span>{product.specs.screenRefreshRate}</span>
             </div>
+          </div>
+        </section>
+        <section className="product-similar">
+          <h2 className="specs-title__similar">SIMILAR ITEMS</h2>
+          <div className="container__carousel">
+            {product.similarProducts.map((similar, key) => (
+              <ProductCard product={similar} key={key} />
+            ))}
           </div>
         </section>
       </div>
