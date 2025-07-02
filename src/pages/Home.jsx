@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../hooks/useProducts';
 
 function Home() {
@@ -22,6 +23,7 @@ function Home() {
     if (!loading) firstLoad.current = false;
   }, [loading]);
 
+  const navigate = useNavigate();
   return (
     <div className="home-page">
       <div className="search-container">
@@ -42,7 +44,12 @@ function Home() {
 
       <div className="product-card__grid">
         {displayed.map((p) => (
-          <div className="product-card" key={p.id}>
+          <div
+            className="product-card"
+            key={p.id}
+            onClick={() => navigate(`/product/${p.id}`)}
+            style={{ cursor: 'pointer' }}
+          >
             <img
               className="product-card__image"
               src={p.imageUrl}
