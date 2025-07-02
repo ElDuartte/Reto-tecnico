@@ -1,9 +1,13 @@
 @use '@/styles/_variables.scss' as *;
 
+.container__product {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .product-detail {
   display: flex;
   gap: 2rem;
-  // padding: 2rem;
 
   &__left {
     flex: 1;
@@ -17,6 +21,7 @@
 
   &__right {
     flex: 2;
+    max-width: 380px;
   }
 
   &__title{
@@ -38,7 +43,7 @@
     gap: 0.5rem;
     margin: 1rem 0;
 
-    .color-circle {
+    .color-square {
       width: 32px;
       height: 32px;
       border: 1px solid transparent;
@@ -50,6 +55,27 @@
     }
   }
 
+  .cart__button{
+    margin-top: 2rem;
+    width: 380px;
+    padding: 1rem;
+    background-color: #000;
+    color: white;
+
+    cursor: pointer;
+    &:disabled {
+      background-color: #F3F2F2;
+      color: #C2BFBC;
+      cursor: not-allowed;
+    }
+
+    &:active:not(:disabled) {
+      border: 1px solid #aaa;
+      background-color: white;
+      color: #000;
+    }
+  }
+
   .storage-options {
     display: flex;
     margin-top: 0.5rem;
@@ -58,7 +84,6 @@
     .storage-button {
       padding: 1rem;
       border: 1px solid #aaa;
-      // border-radius: 0.5rem;
       background: white;
       cursor: pointer;
 
