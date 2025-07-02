@@ -54,7 +54,7 @@ describe('Home component', () => {
     // Assert: result count
     expect(screen.getByText('1 result found')).toBeInTheDocument();
     // Assert: product details
-    expect(screen.getByText('Apple')).toBeInTheDocument();
+    expect(screen.getByText('APPLE')).toBeInTheDocument();
     expect(screen.getByText('iPhone 15 Pro Max')).toBeInTheDocument();
     expect(screen.getByText('$1319')).toBeInTheDocument();
   });
