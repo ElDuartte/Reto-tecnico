@@ -1,5 +1,3 @@
-// needs to show the user the number of results found
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useProducts } from '../hooks/useProducts';
 
@@ -10,14 +8,13 @@ function Home() {
   const [debouncedSearch, setDebouncedSearch] = useState(search);
 
   useEffect(() => {
-    // 300 milliseconds delay
+    // 300 milliseconds delay to smooth out the user experience
     const handler = setTimeout(() => setDebouncedSearch(search), 300);
     return () => clearTimeout(handler);
   }, [search]);
 
   const { products = [], loading, error } = useProducts(debouncedSearch, 25, 0);
 
-  // only show up to 20 at a time
   const displayed = products.slice(0, 20);
 
   // Track first load to show full-page loader only once
@@ -43,16 +40,16 @@ function Home() {
 
       {error && <div className="error">Error: {error}</div>}
 
-      <div className="product-card product-card--home">
+      <div className="product-card__grid">
         {displayed.map((p) => (
-          <div className="product-card__body" key={p.id}>
+          <div className="product-card" key={p.id}>
             <img
               className="product-card__image"
               src={p.imageUrl}
               alt={p.name}
             />
             <div className="product-card__text">
-              <p className="product-card__brand">{p.brand}</p>
+              <p className="product-card__brand">{p.brand.toUpperCase()}</p>
               <div className="product-card__model-price">
                 <h2 className="product-card__model">{p.name}</h2>
                 <h2 className="product-card__price">${p.basePrice}</h2>
