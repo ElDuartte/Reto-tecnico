@@ -10,7 +10,9 @@
     "test": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "dependencies": {
     "react": "^19.1.0",
