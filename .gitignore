@@ -15,6 +15,10 @@ dist-ssr
 *.min.js
 .env
 
+# Vitest coverage output
+coverage/
+
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

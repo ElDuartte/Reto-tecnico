@@ -3,17 +3,27 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 // GET all the phones
-export async function getProducts(endpoint, options = {}) {
-  const url = `${BASE_URL}${endpoint}`;
+export async function getProducts(
+  path,
+  { params = {}, headers = {}, ...fetchOptions } = {}
+) {
+  // Build full URL with query params
+  const url = new URL(`${BASE_URL}${path}`);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value != null && value !== '') {
+      url.searchParams.append(key, String(value));
+    }
+  });
+
   try {
-    const response = await fetch(url, {
+    const response = await fetch(url.toString(), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': API_KEY,
-        ...(options.headers || {}),
+        ...headers,
       },
-      ...options,
+      ...fetchOptions,
     });
 
     if (!response.ok) {
@@ -30,11 +40,7 @@ export async function getProducts(endpoint, options = {}) {
   }
 }
 
-// GET the specific product by ID
 export async function getProductById(id, options = {}) {
-  console.log('ID:' + id);
-  if (!id) {
-    throw new Error('Product ID is required');
-  }
+  if (!id) throw new Error('Product ID is required');
   return getProducts(`/products/${id}`, options);
 }

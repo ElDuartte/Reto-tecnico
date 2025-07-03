@@ -1,5 +1,14 @@
-@use './sytles/App.scss';
+// VARIABLES ---- USE IT MANUALY OR CONFIG AUTOMATIC INJECTION IN EVERY FILE
+// @use './styles/variables.scss';
 
-body {
-  font-family: Helvetica, Arial, sans-serif;
-}
+// COMPONENTS
+@use './styles/components/Navbar.scss';
+@use './styles/components/ProductCard.scss';
+
+// APP
+@use './styles/App.scss';
+
+// STYLES FOR THE PAGES
+@use './styles/Pages/Home.scss';
+@use './styles/Pages/Product.scss';
+@use './styles/Pages/Cart.scss';

@@ -1,24 +1,24 @@
-import { useState } from 'react'
+import React from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Product from './pages/Product';
+import Cart from './pages/Cart';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const location = useLocation();
   return (
     <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar />
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
+
+      <section className="footer"></section>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
