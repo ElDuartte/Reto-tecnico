@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
 
 // Mock the useProducts hook
 vi.mock('../../hooks/useProducts', () => ({
@@ -25,7 +26,11 @@ describe('Home component', () => {
     });
 
     // Act
-    render(<Home />);
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
 
     // Assert
     expect(screen.getByText('Error: Error happened')).toBeInTheDocument();
@@ -49,7 +54,11 @@ describe('Home component', () => {
     });
 
     // Act
-    render(<Home />);
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
 
     // Assert: result count
     expect(screen.getByText('1 result found')).toBeInTheDocument();
