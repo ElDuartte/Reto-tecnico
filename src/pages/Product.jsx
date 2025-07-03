@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getProductById } from '../services/api';
 import ProductCard from '../components/ProductCard';
 
@@ -12,6 +12,7 @@ function Product() {
   const [error, setError] = useState(null);
   const [colorTouched, setColorTouched] = useState(false);
   const [storageTouched, setStorageTouched] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProduct() {
@@ -110,6 +111,29 @@ function Product() {
             <button
               className="cart__button"
               disabled={!(colorTouched && storageTouched)}
+              onClick={() => {
+                const cartItem = {
+                  id: product.id,
+                  brand: product.brand,
+                  name: product.name,
+                  price: selectedStorage.price,
+                  storage: selectedStorage.capacity,
+                  color: selectedColor.name,
+                  imageUrl: selectedColor.imageUrl,
+                };
+
+                // Bring the curent cart from localStorage
+                const existingCart =
+                  JSON.parse(localStorage.getItem('cart')) || [];
+
+                // add the new item
+                const updatedCart = [...existingCart, cartItem];
+
+                // Save and update the cart
+                localStorage.setItem('cart', JSON.stringify(updatedCart));
+                window.dispatchEvent(new Event('cartUpdated'));
+                navigate('/cart');
+              }}
             >
               Add To Cart
             </button>
