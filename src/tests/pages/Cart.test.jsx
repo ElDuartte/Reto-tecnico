@@ -2,13 +2,19 @@ import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Cart from '../../pages/Cart';
+import userEvent from '@testing-library/user-event';
+import { removeFromCart } from '../../utils/cart';
 
 // Mock React Router
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
-    Link: ({ to, children, ...props }) => <a href={to} {...props}>{children}</a>,
+    Link: ({ to, children, ...props }) => (
+      <a href={to} {...props}>
+        {children}
+      </a>
+    ),
   };
 });
 
@@ -41,6 +47,30 @@ vi.mock('../../utils/cart', () => ({
   ],
   removeFromCart: vi.fn(),
 }));
+
+it('calls removeFromCart when clicking remove', async () => {
+  render(<Cart />);
+  const user = userEvent.setup();
+
+  const removeButtons = screen.getAllByText('Remove');
+  expect(removeButtons).toHaveLength(2);
+
+  await user.click(removeButtons[0]);
+
+  expect(removeFromCart).toHaveBeenCalledWith('1');
+});
+
+it('renders mobile layout on small screen', () => {
+  window.innerWidth = 500;
+  window.dispatchEvent(new Event('resize'));
+
+  render(<Cart />);
+
+  expect(screen.getByText(/TOTAL/)).toBeInTheDocument();
+  expect(screen.getByText('CONTINUE SHOPPING')).toBeInTheDocument();
+  expect(screen.getByText('PAY')).toBeInTheDocument();
+});
+
 
 describe('Cart Page', () => {
   it('renders cart items and total price', () => {
