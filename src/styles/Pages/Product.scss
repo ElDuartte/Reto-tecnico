@@ -57,6 +57,7 @@
   }
 
   .cart__button {
+    border: none;
     margin-top: 2rem;
     max-width: 380px;
     width: 100%;
@@ -128,19 +129,15 @@
   }
 }
 
-.product-similar{
+.product-similar {
   margin-top: 3rem;
 }
 
-.specs-title__similar{
-  margin-bottom: 2rem
+.specs-title__similar {
+  margin-bottom: 2rem;
 }
 
 @media (max-width: 600px) {
-  .container {
-    padding: 20px;
-  }
-
   .container__product {
     padding: 0 1rem;
   }
