@@ -1,4 +1,3 @@
-// src/tests/hooks/useProducts.test.js
 import { renderHook, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useProducts } from '../../hooks/useProducts';

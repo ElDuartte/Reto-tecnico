@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useCartCount } from '../hooks/useCartCount';
 import { Link } from 'react-router-dom';
