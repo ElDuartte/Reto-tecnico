@@ -33,8 +33,6 @@ function Cart() {
 
   const cartCount = useCartCount();
 
-  console.log(cartCount);
-
   return (
     <div className="container container__cart">
       <h2>Cart ({cartCount})</h2>
