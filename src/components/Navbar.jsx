@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Bag from '../assets/images/Bag.png';
 import Logo from '../assets/images/Logo.png';
