@@ -45,8 +45,12 @@ Locally serves the production build at `http://localhost:4173`
 ```bash
 npm run test
 ```
-
 Runs Vitest in watch mode (use `npm run test -- --coverage` for a coverage report).
+
+### Run Accessibility
+```bash
+npx eslint src
+```
 
 ### Format Code
 
