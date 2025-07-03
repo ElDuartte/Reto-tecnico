@@ -116,7 +116,7 @@ function Product() {
           </div>
         </section>
         <section className="product-specs">
-          <h2 className="specs-title">Specifications</h2>
+          <h2 className="specs-title">SPECIFICATIONS</h2>
           <div className="specs-grid">
             <div className="spec-row">
               <span className="spec-key">BRAND</span>
