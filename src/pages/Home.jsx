@@ -47,7 +47,14 @@ function Home() {
           <div
             className="product-card"
             key={p.id}
+            role="button"
+            tabIndex={0}
             onClick={() => navigate(`/product/${p.id}`)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                navigate(`/product/${p.id}`);
+              }
+            }}
             style={{ cursor: 'pointer' }}
           >
             <img
