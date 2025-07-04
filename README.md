@@ -14,6 +14,12 @@ cd Reto-tecnico
 npm install
 ```
 
+### Before launching the app make sure you have `.env` in the root of the project
+```
+VITE_API_BASE_URL=__url__
+VITE_API_KEY=__key__
+```
+
 ## Available Scripts
 
 Start Development Server
@@ -90,6 +96,8 @@ npm run format:check
 | ProductCard.jsx | ✅ Yes            |
 | useCartCount.js | ✅ Yes            |
 | useProducts.js  | ✅ Yes            |
+| useCartSync.js  | ✅ Yes            |
+| useIsMobile.js  | ✅ Yes            |
 | Cart.jsx        | ✅ Yes            |
 | Home.jsx        | ✅ Yes            |
 | Product.jsx     | ✅ Yes            |
@@ -101,3 +109,17 @@ npm run format:check
 - `i18n` to handle languages
   - organize the text in `.json` so it can be divided by languages
 - Animation library
+
+---
+
+# Design decisions:
+The file structure is organized is to clearly separate, services, hooks, components for better maintainability and clarity
+- The API layer is through a service module. `src/services/api.js` it centralizes requests and has environment variables (`VITE_API_BASE_URL` and `VITE_API_KEY`) so that the app can target different backends without code changes.
+- Custom hooks for shared logic. Making the functionality more abstract.
+	- `useProducts` Fetches data and filters duplicates because the API is returning repeated items.
+	- I created `useIsMobile` to have cleaner code in `Cart.jsx`. The use is to have the desired responsive design.
+	- `useCartCount` and `useCartSync` keep cart data synchronized across components by listening for a custom `cartUpdated` event, which is sent when items are added or removed.
+- Debounced search input. In `Home.jsx` delays API calls to avoid excessive fetches when typing.
+- The project uses `vitest` for testing, because it integrates well with Vite and offers faster performance compared to `jest`.
+- ESLint is configured to catch errors early and have code consistency in the project.
+
