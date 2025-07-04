@@ -96,6 +96,21 @@
   }
 }
 
+.cart-button__continue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  max-width: 360px;
+  height: 50px;
+  border: 1px solid #000;
+}
+.cart-button__continue-mobile {
+  max-width: 100%;
+}
+
 @media (max-width: 600px) {
   .cart__total {
     width: 100%;

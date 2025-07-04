@@ -63,15 +63,20 @@ function Cart() {
       <section className="container container__total">
         {isMobile ? (
           <>
-            <div className="cart-total-wrapper">
-              <p className="cart-description__total">TOTAL </p>{' '}
-              <p className="cart-description__price">{totalPrice} EUR</p>
-            </div>
+            {cartCount > 0 && (
+              <div className="cart-total-wrapper">
+                <p className="cart-description__total">TOTAL</p>
+                <p className="cart-description__price">{totalPrice} EUR</p>
+              </div>
+            )}
             <div className="cart-buttons-wrapper">
-              <Link to="/" className="cart-button cart-button__continue">
+              <Link
+                to="/"
+                className={`cart-button cart-button__continue ${cartCount > 0 ? '' : 'cart-button__continue-mobile'}`}
+              >
                 CONTINUE SHOPPING
               </Link>
-              <button className="cart-button">PAY</button>
+              {cartCount > 0 && <button className="cart-button">PAY</button>}
             </div>
           </>
         ) : (
@@ -80,8 +85,12 @@ function Cart() {
               CONTINUE SHOPPING
             </Link>
             <div className="container__price-pay">
-              <p className="cart__total">TOTAL {totalPrice} EUR</p>
-              <button className="cart-button">PAY</button>
+              {cartCount > 0 && (
+                <>
+                  <p className="cart__total">TOTAL {totalPrice} EUR</p>
+                  <button className="cart-button">PAY</button>
+                </>
+              )}
             </div>
           </>
         )}
