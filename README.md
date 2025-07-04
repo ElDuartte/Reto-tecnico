@@ -1,5 +1,5 @@
 # Design decisions:
-The file structure is organized is to clearly separate, services, hooks, components for better maintainability and clarity
+The file structure is organized to clearly separate, services, hooks, components for better maintainability and clarity
 - The API layer is through a service module. `src/services/api.js` it centralizes requests and has environment variables (`VITE_API_BASE_URL` and `VITE_API_KEY`) so that the app can target different backends without code changes.
 - Custom hooks for shared logic. Making the functionality more abstract.
 	- `useProducts` Fetches data and filters duplicates because the API is returning repeated items.
