@@ -112,6 +112,7 @@ function Product() {
               onClick={() => {
                 const cartItem = {
                   id: product.id,
+                  uniqueId: `${product.id}-${selectedColor.name}-${selectedStorage.capacity}-${Date.now()}`,
                   brand: product.brand,
                   name: product.name,
                   price: selectedStorage.price,
