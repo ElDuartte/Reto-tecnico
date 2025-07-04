@@ -1,37 +1,20 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
 import { useCartCount } from '../hooks/useCartCount';
 import { Link } from 'react-router-dom';
-import { getCart, removeFromCart } from '../utils/cart';
+import { removeFromCart } from '../utils/cart';
+import { useCartSync } from '../hooks/useCartSync';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 function Cart() {
-  const [cart, setCart] = useState([]);
+  const cart = useCartSync();
+  const isMobile = useIsMobile();
+
   const totalPrice = cart.reduce((sum, item) => sum + Number(item.price), 0);
-
-  useEffect(() => {
-    setCart(getCart());
-
-    const handleCartChange = () => {
-      setCart(getCart());
-    };
-
-    window.addEventListener('cartUpdated', handleCartChange);
-    return () => window.removeEventListener('cartUpdated', handleCartChange);
-  }, []);
-
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 600);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const cartCount = useCartCount();
 
   const handleDelete = (uniqueId) => {
     removeFromCart(uniqueId);
   };
-
-  const cartCount = useCartCount();
 
   return (
     <div className="container container__cart">
@@ -60,6 +43,7 @@ function Cart() {
           </div>
         ))}
       </div>
+
       <section className="container container__total">
         {isMobile ? (
           <>
