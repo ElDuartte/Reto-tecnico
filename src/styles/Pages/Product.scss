@@ -137,6 +137,13 @@
   margin-bottom: 2rem;
 }
 
+.storage-button.untouched.selected,
+.color-square.untouched.selected {
+  outline: none;
+  box-shadow: none;
+  border: none; // o lo que estés usando para resaltar
+}
+
 @media (max-width: 600px) {
   .container__product {
     padding: 0 1rem;

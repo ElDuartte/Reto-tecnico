@@ -57,7 +57,6 @@ function Product() {
             <h1 className="product-detail__title">
               {product.brand} {product.name}
             </h1>
-            {/* <p>{product.description}</p> */}
 
             <div className="product-detail__price">
               {!storageTouched && 'From '}
@@ -75,6 +74,7 @@ function Product() {
                       setStorageTouched(true);
                     }}
                     className={`storage-button ${
+                      storageTouched &&
                       selectedStorage.capacity === option.capacity
                         ? 'selected'
                         : ''
@@ -97,9 +97,7 @@ function Product() {
                         setSelectedColor(color);
                         setColorTouched(true);
                       }}
-                      className={`color-square ${
-                        selectedColor.name === color.name ? 'selected' : ''
-                      }`}
+                      className={`color-square ${selectedColor.name === color.name ? 'selected' : ''} ${!colorTouched ? 'untouched' : ''}`}
                       style={{ backgroundColor: color.hexCode }}
                       title={color.name}
                     />
@@ -114,6 +112,7 @@ function Product() {
               onClick={() => {
                 const cartItem = {
                   id: product.id,
+                  uniqueId: `${product.id}-${selectedColor.name}-${selectedStorage.capacity}-${Date.now()}`,
                   brand: product.brand,
                   name: product.name,
                   price: selectedStorage.price,

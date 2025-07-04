@@ -31,10 +31,14 @@
 }
 
 .button__delete {
-  cursor: pointer;
-
+  background: none;
+  border: none;
   color: red;
+  cursor: pointer;
+  font-size: 1rem;
   margin-bottom: 3rem;
+  text-align: left;
+  padding: 0;
 }
 
 .card__text {
@@ -90,6 +94,21 @@
     background-color: white;
     color: #000;
   }
+}
+
+.cart-button__continue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  max-width: 260px;
+  height: 50px;
+  border: 1px solid #000;
+}
+.cart-button__continue-mobile {
+  max-width: 100%;
 }
 
 @media (max-width: 600px) {

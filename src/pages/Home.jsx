@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../hooks/useProducts';
 
 function Home() {
   const [search, setSearch] = useState('');
-  const firstLoad = useRef(true);
   // Debounced search term to avoid triggering fetch on every keystroke
   const [debouncedSearch, setDebouncedSearch] = useState(search);
 
@@ -14,14 +13,9 @@ function Home() {
     return () => clearTimeout(handler);
   }, [search]);
 
-  const { products = [], loading, error } = useProducts(debouncedSearch, 25, 0);
+  const { products = [], error } = useProducts(debouncedSearch, 25, 0);
 
   const displayed = products.slice(0, 20);
-
-  // Track first load to show full-page loader only once
-  useEffect(() => {
-    if (!loading) firstLoad.current = false;
-  }, [loading]);
 
   const navigate = useNavigate();
   return (
@@ -47,7 +41,14 @@ function Home() {
           <div
             className="product-card"
             key={p.id}
+            role="button"
+            tabIndex={0}
             onClick={() => navigate(`/product/${p.id}`)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                navigate(`/product/${p.id}`);
+              }
+            }}
             style={{ cursor: 'pointer' }}
           >
             <img
