@@ -9,9 +9,10 @@ export function addToCart(item) {
   window.dispatchEvent(new Event('cartUpdated'));
 }
 
-export function removeFromCart(id) {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const updatedCart = cart.filter((item) => item.id !== id);
+export function removeFromCart(uniqueId) {
+  const cart = getCart();
+  const updatedCart = cart.filter((item) => item.uniqueId !== uniqueId);
   localStorage.setItem('cart', JSON.stringify(updatedCart));
   window.dispatchEvent(new Event('cartUpdated'));
 }
+

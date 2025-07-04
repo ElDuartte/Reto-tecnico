@@ -8,6 +8,13 @@ function ProductCard({ product }) {
       className="product-card"
       key={product.id}
       onClick={() => navigate(`/product/${product.id}`)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          navigate(`/product/${product.id}`);
+        }
+      }}
       style={{ cursor: 'pointer' }}
     >
       <img

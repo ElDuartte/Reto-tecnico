@@ -48,11 +48,25 @@ npm run test
 
 Runs Vitest in watch mode (use `npm run test -- --coverage` for a coverage report).
 
+### Run Accessibility
+
+`````bash
+npm run lint
+```
+Or:
+```bash
+npx eslint src
+```
+To fix:
+````bash
+npm run lint:fix
+```
+
 ### Format Code
 
 ```bash
 npm run format
-```
+`````
 
 Auto-formats all files with Prettier.
 (Optional) Check formatting without writing:
@@ -67,6 +81,7 @@ npm run format:check
 - It's better to test `App.jsx` because is where the logic and routing is happening
 
 #### Test coverage:
+
 | File            | Covered by Tests? |
 | --------------- | ----------------- |
 | App.jsx         | ✅ Yes            |
