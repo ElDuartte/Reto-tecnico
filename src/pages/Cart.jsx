@@ -50,17 +50,17 @@ function Cart() {
                 </p>
                 <p className="card__text card-text__price">{item.price} EUR</p>
               </div>
-              <a
+              <button
                 onClick={() => handleDelete(item.id)}
                 className="button__delete"
               >
                 Remove
-              </a>
+              </button>
             </div>
           </div>
         ))}
       </div>
-      <section className="container__total">
+      <section className="container container__total">
         {isMobile ? (
           <>
             <div className="cart-total-wrapper">
@@ -71,7 +71,7 @@ function Cart() {
               <Link to="/" className="cart-button cart-button__continue">
                 CONTINUE SHOPPING
               </Link>
-              <a className="cart-button">PAY</a>
+              <button className="cart-button">PAY</button>
             </div>
           </>
         ) : (
@@ -81,7 +81,7 @@ function Cart() {
             </Link>
             <div className="container__price-pay">
               <p className="cart__total">TOTAL {totalPrice} EUR</p>
-              <a className="cart-button">PAY</a>
+              <button className="cart-button">PAY</button>
             </div>
           </>
         )}
