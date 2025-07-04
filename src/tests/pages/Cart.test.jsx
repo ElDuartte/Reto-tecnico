@@ -28,6 +28,7 @@ vi.mock('../../utils/cart', () => ({
   getCart: () => [
     {
       id: '1',
+      uniqueId: 'u1',
       brand: 'BrandX',
       name: 'Phone 1',
       price: '100',
@@ -37,6 +38,7 @@ vi.mock('../../utils/cart', () => ({
     },
     {
       id: '2',
+      uniqueId: 'u2',
       brand: 'BrandY',
       name: 'Phone 2',
       price: '200',
@@ -57,7 +59,7 @@ it('calls removeFromCart when clicking remove', async () => {
 
   await user.click(removeButtons[0]);
 
-  expect(removeFromCart).toHaveBeenCalledWith('1');
+  expect(removeFromCart).toHaveBeenCalledWith('u1');
 });
 
 it('renders mobile layout on small screen', () => {
@@ -70,7 +72,6 @@ it('renders mobile layout on small screen', () => {
   expect(screen.getByText('CONTINUE SHOPPING')).toBeInTheDocument();
   expect(screen.getByText('PAY')).toBeInTheDocument();
 });
-
 
 describe('Cart Page', () => {
   it('renders cart items and total price', () => {

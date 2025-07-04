@@ -27,8 +27,8 @@ function Cart() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleDelete = (id) => {
-    removeFromCart(id);
+  const handleDelete = (uniqueId) => {
+    removeFromCart(uniqueId);
   };
 
   const cartCount = useCartCount();
@@ -38,7 +38,7 @@ function Cart() {
       <h2>Cart ({cartCount})</h2>
       <div className="container-card__details">
         {cart.map((item) => (
-          <div className="card__details" key={item.id}>
+          <div className="card__details" key={item.uniqueId}>
             <img src={item.imageUrl} alt={item.name} className="card__image" />
             <div className="card-container__details">
               <div className="card-container__text">
@@ -51,7 +51,7 @@ function Cart() {
                 <p className="card__text card-text__price">{item.price} EUR</p>
               </div>
               <button
-                onClick={() => handleDelete(item.id)}
+                onClick={() => handleDelete(item.uniqueId)}
                 className="button__delete"
               >
                 Remove
