@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-function ProductCard({ product }) {
+
+function ProductCard({ product, borderClass = '', refCallback, dataId }) {
   const navigate = useNavigate();
 
   return (
     <div
-      className="product-card"
-      key={product.id}
+      className={`product-card ${borderClass}`}
+      data-id={dataId}
+      ref={refCallback}
       onClick={() => navigate(`/product/${product.id}`)}
       role="button"
       tabIndex={0}
@@ -32,4 +34,5 @@ function ProductCard({ product }) {
     </div>
   );
 }
+
 export default ProductCard;

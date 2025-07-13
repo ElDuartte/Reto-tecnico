@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useProducts } from '../hooks/useProducts';
+import { useResponsiveBorders } from '../hooks/useResponsiveBorders';
+import { useRefsArray } from '../hooks/useRefsArray';
+import ProductCard from '../components/ProductCard'; // 🔧 Asegúrate de que esta ruta sea correcta
 
 function Home() {
   const [search, setSearch] = useState('');
@@ -17,7 +19,9 @@ function Home() {
 
   const displayed = products.slice(0, 20);
 
-  const navigate = useNavigate();
+  const refs = useRefsArray(displayed.length);
+  const borderClasses = useResponsiveBorders(refs);
+
   return (
     <div className="home-page">
       <div className="search-container">
@@ -37,34 +41,21 @@ function Home() {
       {error && <div className="error">Error: {error}</div>}
 
       <div className="product-card__grid">
-        {displayed.map((p) => (
-          <div
-            className="product-card"
-            key={p.id}
-            role="button"
-            tabIndex={0}
-            onClick={() => navigate(`/product/${p.id}`)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                navigate(`/product/${p.id}`);
-              }
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <img
-              className="product-card__image"
-              src={p.imageUrl}
-              alt={p.name}
+        {displayed.map((product, index) => {
+          const ref = refs[index];
+          const borderClass = borderClasses[product.id]?.join(' ') ?? '';
+          {/* console.log('ID:', product.id, 'classes:', borderClasses[product.id]); */}
+
+          return (
+            <ProductCard
+              key={product.id}
+              product={product}
+              borderClass={borderClass}
+              refCallback={ref}
+              dataId={String(product.id)}
             />
-            <div className="product-card__text">
-              <p className="product-card__brand">{p.brand.toUpperCase()}</p>
-              <div className="product-card__model-price">
-                <h2 className="product-card__model">{p.name}</h2>
-                <h2 className="product-card__price">${p.basePrice}</h2>
-              </div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
