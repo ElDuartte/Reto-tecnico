@@ -1,0 +1,25 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore all environment files.
+/.env*
+
+# Ignore log, temp and storage directories but keep the placeholder files.
+/log/
+/tmp/
+/storage/
+!/log/.keep
+!/tmp/.keep
+!/storage/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore any uploaded files stored in tmp during tests.
+/tmp/storage/
+!/tmp/storage/.keep
+
+# Ignore master key for decrypting credentials and more.
+!/config/master.key.sw?
+*.key
