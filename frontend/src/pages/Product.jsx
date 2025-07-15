@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getProductById } from '../services/api';
 import ProductCard from '../components/ProductCard';
+import { useResponsiveBorders } from '../hooks/useResponsiveBorders';
+import { useRefsArray } from '../hooks/useRefsArray';
 
 function Product() {
   const { id } = useParams();
@@ -13,6 +15,8 @@ function Product() {
   const [colorTouched, setColorTouched] = useState(false);
   const [storageTouched, setStorageTouched] = useState(false);
   const navigate = useNavigate();
+  const similarRefs = useRefsArray(product?.similarProducts?.length || 0);
+  const similarBorderClasses = useResponsiveBorders(similarRefs);
 
   useEffect(() => {
     async function fetchProduct() {
@@ -190,9 +194,22 @@ function Product() {
         <section className="product-similar">
           <h2 className="specs-title__similar">SIMILAR ITEMS</h2>
           <div className="container__carousel">
-            {product.similarProducts.map((similar, key) => (
-              <ProductCard product={similar} key={key} />
-            ))}
+            {product.similarProducts.map((similar, index) => {
+              const ref = similarRefs[index];
+              const borderClass =
+                similarBorderClasses[similar.id]?.join(' ') ?? '';
+
+              return (
+                <div
+                  ref={ref}
+                  key={index}
+                  data-id={similar.id}
+                  className={`product-card ${borderClass}`}
+                >
+                  <ProductCard product={similar} />
+                </div>
+              );
+            })}
           </div>
         </section>
       </div>
