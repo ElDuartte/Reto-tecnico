@@ -25,7 +25,19 @@ gem install bundler
 bundle install
 ```
 
-### 2. Set up the database
+### 2. Configure PostgreSQL
+
+Create a PostgreSQL database and set the following environment variables so Rails
+can connect:
+
+```bash
+export DB_HOST=localhost
+export DB_USERNAME=postgres
+export DB_PASSWORD=your_password
+export DB_NAME=app_development
+```
+
+Once the variables are exported you can create and seed the database:
 
 ```rb
 rails db:create
