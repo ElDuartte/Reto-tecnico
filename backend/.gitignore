@@ -4,22 +4,20 @@
 # Ignore all environment files.
 /.env*
 
-# Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
+# Ignore log, temp and storage directories but keep the placeholder files.
+/log/
+/tmp/
+/storage/
 !/log/.keep
 !/tmp/.keep
+!/storage/.keep
 
 # Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/
+/tmp/pids/
 !/tmp/pids/.keep
 
-# Ignore storage (uploaded files in development and any SQLite databases).
-/storage/*
-!/storage/.keep
-/tmp/storage/*
-!/tmp/storage/
+# Ignore any uploaded files stored in tmp during tests.
+/tmp/storage/
 !/tmp/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
