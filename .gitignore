@@ -55,4 +55,5 @@ coverage/
 !/tmp/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key.sw?
+!/config/master.key.sw?
+.key
