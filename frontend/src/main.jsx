@@ -10,13 +10,6 @@ import {
 import App from './App';
 import './index.scss';
 
-console.log(
-  'GRAPHQL endpoint:',
-  `${import.meta.env.VITE_API_BASE_URL}/graphql`
-);
-console.log('API Key:', import.meta.env.VITE_API_KEY);
-
-
 const client = new ApolloClient({
   link: new HttpLink({
     uri: `${import.meta.env.VITE_API_BASE_URL}/graphql`,

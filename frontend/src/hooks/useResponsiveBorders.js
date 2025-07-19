@@ -84,7 +84,6 @@ export function useResponsiveBorders(refs) {
         }
       });
 
-      // console.log('[useResponsiveBorders] ✅ Resultado final:', newBorders);
       setBorderClasses(newBorders);
     };
 
