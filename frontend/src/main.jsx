@@ -1,34 +1,29 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  createHttpLink,
+  HttpLink,
 } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.scss';
 
-// 1. Crear el link HTTP
-const httpLink = createHttpLink({
-  uri: `${import.meta.env.VITE_API_BASE_URL}/graphql`,
-});
+console.log(
+  'GRAPHQL endpoint:',
+  `${import.meta.env.VITE_API_BASE_URL}/graphql`
+);
+console.log('API Key:', import.meta.env.VITE_API_KEY);
 
-// 2. Inyectar la API KEY en el header
-const authLink = setContext((_, { headers }) => {
-  return {
+
+const client = new ApolloClient({
+  link: new HttpLink({
+    uri: `${import.meta.env.VITE_API_BASE_URL}/graphql`,
     headers: {
-      ...headers,
       Authorization: import.meta.env.VITE_API_KEY,
     },
-  };
-});
-
-// 3. Crear el Apollo Client con auth
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  }),
   cache: new InMemoryCache(),
 });
 

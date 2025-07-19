@@ -3,6 +3,8 @@ class ApplicationController < ActionController::API
 
   def authenticate_with_api_key
     token = request.headers['Authorization']
-    render json: { error: 'UNAUTHORIZED', message: 'Invalid API key' }, status: :unauthorized unless token == ENV['API_KEY']
+    unless token == ENV['API_KEY']
+      render json: { error: 'UNAUTHORIZED', message: 'Invalid API key' }, status: :unauthorized
+    end
   end
 end
