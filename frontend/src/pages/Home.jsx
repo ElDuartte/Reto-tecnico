@@ -1,61 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { useProducts } from '../hooks/useProducts';
-import { useResponsiveBorders } from '../hooks/useResponsiveBorders';
-import { useRefsArray } from '../hooks/useRefsArray';
-import ProductCard from '../components/ProductCard'; // 🔧 Asegúrate de que esta ruta sea correcta
+import React from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_POKEMONS } from '../graphql/queries';
+import ProductCard from '../components/ProductCard';
 
 function Home() {
-  const [search, setSearch] = useState('');
-  // Debounced search term to avoid triggering fetch on every keystroke
-  const [debouncedSearch, setDebouncedSearch] = useState(search);
+  const { data, loading, error } = useQuery(GET_POKEMONS);
 
-  useEffect(() => {
-    // 300 milliseconds delay to smooth out the user experience
-    const handler = setTimeout(() => setDebouncedSearch(search), 300);
-    return () => clearTimeout(handler);
-  }, [search]);
+  const pokemons = data?.pokemons ?? [];
 
-  const { products = [], error } = useProducts(debouncedSearch, 25, 0);
-
-  const displayed = products.slice(0, 20);
-
-  const refs = useRefsArray(displayed.length);
-  const borderClasses = useResponsiveBorders(refs);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div className="error">Error: {error.message}</div>;
 
   return (
     <div className="home-page">
-      <div className="search-container">
-        <input
-          id="search-input"
-          type="text"
-          placeholder="Search for a smartphone..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="search-input"
-        />
-        <p className="results-count">
-          {displayed.length} result{displayed.length !== 1 ? 's' : ''} found
-        </p>
-      </div>
+      <h1 className="search-container">Pokémon List</h1>
 
-      {error && <div className="error">Error: {error}</div>}
+      <p className="results-count">{pokemons.length} results found</p>
 
       <div className="product-card__grid">
-        {displayed.map((product, index) => {
-          const ref = refs[index];
-          const borderClass = borderClasses[product.id]?.join(' ') ?? '';
-          {/* console.log('ID:', product.id, 'classes:', borderClasses[product.id]); */}
-
-          return (
-            <ProductCard
-              key={product.id}
-              product={product}
-              borderClass={borderClass}
-              refCallback={ref}
-              dataId={String(product.id)}
-            />
-          );
-        })}
+        {pokemons.map((pokemon) => (
+          <ProductCard
+            key={pokemon.id}
+            product={{
+              name: pokemon.name,
+              image: pokemon.imageUrl,
+              type: pokemon.types,
+              hp: pokemon.hp,
+              attack: pokemon.attack,
+            }}
+          />
+        ))}
       </div>
     </div>
   );

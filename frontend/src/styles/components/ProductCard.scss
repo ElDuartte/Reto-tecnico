@@ -19,15 +19,9 @@
   box-sizing: border-box;
 }
 
-.product-card__brand {
+.product-card__details {
   color: $second-color;
   font-size: 10px;
-}
-
-.product-card__model-price {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 .product-similar {

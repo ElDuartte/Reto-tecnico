@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Bag from '../assets/images/Bag.png';
-import Logo from '../assets/images/Logo.png';
+import Blast from '../assets/images/pokeball.png';
 import { useCartCount } from '../hooks/useCartCount';
 
 function Navbar() {
@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <section className="navbar-container">
       <Link to="/">
-        <img src={Logo} alt="Logo" className="logo" />
+        <img src={Blast} alt="Logo" className="logo" />
       </Link>
       <Link to="/cart" className="cart">
         <img src={Bag} alt="Bag icon" className="bag" />
