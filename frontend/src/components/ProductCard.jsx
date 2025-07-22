@@ -21,15 +21,16 @@ function ProductCard({ product, borderClass = '', refCallback, dataId }) {
     >
       <img
         className="product-card__image"
-        src={product.imageUrl}
+        src={product.image}
         alt={product.name}
       />
       <div className="product-card__text">
-        <p className="product-card__brand">{product.brand.toUpperCase()}</p>
-        <div className="product-card__model-price">
-          <h2 className="product-card__model">{product.name}</h2>
-          <h2 className="product-card__price">${product.basePrice}</h2>
-        </div>
+        <h2 className="product-card__model">{product.name}</h2>
+        <p className="product-card__details">
+          Hp: {product.hp} Attack: {product.attack}
+        </p>
+        <p className="product-card__details">Type: {product.type}</p>
+        <p className="product-card__details">$ {product.hp + product.attack}</p>
       </div>
     </div>
   );

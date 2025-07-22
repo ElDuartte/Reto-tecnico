@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  image_url: MyString
+  types: MyString
+  hp: 1
+  attack: 1
+
+two:
+  name: MyString
+  image_url: MyString
+  types: MyString
+  hp: 1
+  attack: 1

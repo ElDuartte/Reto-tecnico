@@ -2,12 +2,11 @@ FROM node:20
 
 WORKDIR /app
 
-# Install dependencies
-COPY frontend/package.json frontend/package-lock.json ./
-RUN npm ci
+# Copia todo de una vez al principio
+COPY frontend .
 
-# Copy source
-COPY frontend ./
+# Instala dependencias (esto usará .env si es necesario)
+RUN npm ci
 
 EXPOSE 5173
 CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

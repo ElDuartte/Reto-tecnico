@@ -12,7 +12,7 @@ services:
 
   backend:
     env_file:
-      - .env
+      - ./backend/.env
     build:
       context: .
       dockerfile: backend/Dockerfile
@@ -29,19 +29,20 @@ services:
       - "3001:3000"
 
   frontend:
-    env_file:
-      - .env
     build:
       context: .
       dockerfile: frontend/Dockerfile
-    depends_on:
-      - backend
+    env_file:
+      - ./frontend/.env
     environment:
-      VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+      - VITE_API_BASE_URL=http://localhost:3001
+      - VITE_API_KEY=87909682e6cd74208f41a6ef39fe4191
     volumes:
       - ./frontend:/app
     ports:
       - "5173:5173"
+    depends_on:
+      - backend
 
 volumes:
   pgdata:
